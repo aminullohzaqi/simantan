@@ -3,7 +3,7 @@
 
 @php
     $pretitle = 'Aminulloh Zaqi';
-    $title = 'Maintenance'
+    $title = 'Maintenance Data Center'
 @endphp
 
 @section('content')
@@ -311,7 +311,7 @@
                 success: function (result) {
                     if (result) {
                         swal("Success", "Your Data Has Been Saved", "success");
-                        window.location.href = "{{url('maintenance')}}";
+                        window.location.href = "{{url('maintenance-dc')}}";
                     }
                 }
             })

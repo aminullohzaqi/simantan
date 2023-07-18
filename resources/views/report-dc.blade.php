@@ -3,7 +3,7 @@
 
 @php
     $pretitle = 'Aminulloh Zaqi';
-    $title = 'Report Maintenance'
+    $title = 'Report Maintenance Data Center'
 @endphp
 
 @section('content')
@@ -55,9 +55,19 @@
                         </tr>
                     </thead>
                     <tbody id="report-list">
-                        
+                        @foreach($maintenance_data_index as $data)
+                            <tr onclick="toDetailPage('{{$data->maintenance_date}}', {{$data->id_log_maintenance}}, {{$data->id_equipment_metadata}})">
+                                <td>{{$data->maintenance_date}}</td>
+                                <td>{{$data->equipment_type}}</td>
+                                <td>{{$data->equipment}}</td>
+                                <td>{{$data->name}}</td>
+                            </tr>
+                        @endforeach
                     </tbody>
                 </table>
+            </div>
+            <div class="card-body">
+                {{$maintenance_data_index->links()}}
             </div>
         </div>
     </div>
