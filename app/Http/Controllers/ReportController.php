@@ -45,4 +45,46 @@ class ReportController extends Controller
         }
         return response()->json($data);
     }
+
+    public function previewDc(Request $request) {
+        $data['equipment_form'] = DB::table('log_maintenance_fire')
+                                    ->join('equipment_metadata', 'log_maintenance_fire.id_equipment_metadata', '=', 'equipment_metadata.id_equipment_metadata')
+                                    ->join('technician', 'log_maintenance_fire.id_technician', '=', 'technician.id_technician')
+                                    ->join('equipment_type', 'equipment_metadata.id_equipment_type', '=', 'equipment_type.id_equipment_type')
+                                    ->select('log_maintenance_fire.id_log_maintenance', 'log_maintenance_fire.maintenance_date', 'equipment_type.id_equipment_type', 'equipment_type.equipment_type', 'equipment_metadata.id_equipment_metadata', 'equipment_metadata.equipment', 'equipment_metadata.model', 'technician.id_technician', 'technician.name')
+                                    ->where('log_maintenance_fire.id_log_maintenance', $request->id_log_maintenance)
+                                    ->get();
+
+        $data['maintenance_data'] = DB::table('log_data_fire')
+                                    ->join('params', 'log_data_fire.id_param', '=', 'params.id_param')
+                                    ->join('items', 'params.id_item', '=', 'items.id_item')
+                                    ->join('equipment_metadata', 'items.id_equipment_metadata', '=', 'equipment_metadata.id_equipment_metadata')
+                                    ->select('log_data_fire.*', 'items.id_item', 'items.item', 'params.id_param', 'params.param')
+                                    ->where('log_data_fire.maintenance_date', $request->maintenance_date)
+                                    ->where('equipment_metadata.id_equipment_metadata', $request->id_equipment_metadata)
+                                    ->get();
+
+        $id_item = [];
+        $lookup = [];
+        $data['item_length'] = [];
+
+        for ($i=0; $i<count($data['maintenance_data']); $i++) {
+            array_push($id_item, $data['maintenance_data'][$i]->id_item);
+        }
+
+        for ($i=0; $i<count($data['maintenance_data']); $i++) {
+            if (in_array($id_item[$i], $lookup) == false) {
+                array_push($lookup, $id_item[$i]);
+                $counts = array_count_values($id_item);
+                array_push($data['item_length'], [
+                    'id_item' => $data['maintenance_data'][$i]->id_item,
+                    'item' => $data['maintenance_data'][$i]->item,
+                    'length' => $counts[$id_item[$i]]
+                ]);
+            }
+        }
+
+        return view('preview-dc', $data);
+        // return response()->json($data);
+    }
 }

@@ -115,7 +115,7 @@
     })
 
     function toDetailPage (maintenance_date, id_log, id_equipment_metadata) {
-        window.location.href = "{{route('maintenance-dc-edit')}}?id_log_maintenance=" + id_log + '&id_equipment_metadata=' + id_equipment_metadata + '&maintenance_date=' + maintenance_date;
+        window.location.href = "{{route('preview-dc')}}?id_log_maintenance=" + id_log + '&id_equipment_metadata=' + id_equipment_metadata + '&maintenance_date=' + maintenance_date;
     }
 </script>
 @endsection
