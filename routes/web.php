@@ -3,6 +3,7 @@
 use App\Http\Controllers\ProfileController;
 use App\Http\Controllers\MaintenanceController;
 use App\Http\Controllers\ReportController;
+use App\Http\Controllers\LogbookController;
 use Illuminate\Support\Facades\Route;
 
 /*
@@ -36,9 +37,8 @@ Route::post('api/edit-log-maintenance', [MaintenanceController::class, 'editLog'
 Route::get('/report-dc', [ReportController::class, 'indexDc'])->middleware(['auth', 'verified'])->name('report-dc');
 Route::post('api/report-list', [ReportController::class, 'reportList']);
 
-Route::get('/logbook', function () {
-    return view('logbook');
-})->middleware(['auth', 'verified'])->name('logbook');
+Route::get('/logbook', [LogbookController::class, 'index'])->middleware(['auth', 'verified'])->name('logbook');
+Route::post('api/add-logbook', [LogbookController::class, 'addLogbook']);
 
 Route::middleware('auth')->group(function () {
     Route::get('/profile', [ProfileController::class, 'edit'])->name('profile.edit');
