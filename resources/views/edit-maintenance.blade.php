@@ -19,6 +19,7 @@
                             <div class="form-group">
                                 <td>
                                     <label for="">Equipment Type</label>
+                                    <div id="id-log-maintenance" class="d-none">{{$equipment_form[0]->id_log_maintenance}}</div>
                                 </td>
                                 <td>
                                     <select id="equipment-type-dropdown" class="form-control" required>
@@ -99,50 +100,81 @@
                         </thead>
                         <form action="" id="form-data">
                         <tbody id="form-maintenance">
-                            @foreach($maintenance_data as $data)
+                            @foreach($item_length as $item)
                             <tr>
-                                <td rowspan="1"></td>
-                                <td colspan="10">{{$data->item}}</td>
+                                <td rowspan="{{($item['length'] + 1)}}">{{($loop->index + 1)}}</td>
+                                <td colspan="10">{{$item['item']}}</td>
                             </tr>
-                            <tr> 
-                                <td>{{$data->param}}</td> 
-                                <td> 
-                                    <input type="number" class="form-control form-control-sm check-in-val" value="{{$data->check_in}}"> 
-                                    <input type="hidden" class="form-control form-control-sm check-in-id" value="{{$data->id_param}}"> 
-                                </td> 
-                                <td> 
-                                    <input type="number" class="form-control form-control-sm check-out-val" value="{{$data->check_out}}"> 
-                                    <input type="hidden" class="form-control form-control-sm check-out-id" value="{{$data->id_param}}"> 
-                                </td> 
-                                <td> 
-                                    <input class="form-check-input tf-passed-val" type="checkbox" value="{{$data->tf_passed}}">
-                                    <input type="hidden" class="form-control form-control-sm tf-passed-id" value="{{$data->id_param}}">
-                                </td> 
-                                <td> 
-                                    <input class="form-check-input tf-not-passed-val" type="checkbox" value="{{$data->tf_not_passed}}">
-                                    <input type="hidden" class="form-control form-control-sm tf-not-passed-id" value="{{$data->id_param}}"> 
-                                </td> 
-                                <td> 
-                                    <input class="form-check-input tf-chk-val" type="checkbox" value="{{$data->tf_chk}}">
-                                    <input type="hidden" class="form-control form-control-sm tf-chk-id" value="{{$data->id_param}}"> 
-                                </td> 
-                                <td> 
-                                    <input class="form-check-input tf-clg-val" type="checkbox" value="{{$data->tf_clg}}"> 
-                                    <input type="hidden" class="form-control form-control-sm tf-clg-id" value="{{$data->id_param}}">
-                                </td> 
-                                <td> 
-                                    <input class="form-check-input tf-rpr-val" type="checkbox" value="{{$data->tf_rpr}}"> 
-                                    <input type="hidden" class="form-control form-control-sm tf-rpr-id" value="{{$data->id_param}}">
-                                </td> 
-                                <td> 
-                                    <input class="form-check-input tf-rplt-val" type="checkbox" value="{{$data->tf_rplt}}"> 
-                                    <input type="hidden" class="form-control form-control-sm tf-rplt-id" value="{{$data->id_param}}">
-                                </td> 
-                                <td> 
-                                    <textarea class="form-control form-control-sm note-val" rows="1">{{$data->note}}</textarea> 
-                                    <input type="hidden" class="form-control form-control-sm note-id" value="{{$data->id_param}}">
-                                </td>
-                            </tr>
+                                @foreach($maintenance_data as $data)
+                                    @if($data->id_item == $item['id_item'])
+                                    <tr> 
+                                        <td>
+                                            <div>{{$data->param}}</div>
+                                            <input type="hidden" class="form-control form-control-sm id-log-data" value="{{$data->id_log_data}}"> 
+                                        </td> 
+                                        <td>
+                                            <input type="number" class="form-control form-control-sm check-in-val" value="{{$data->check_in}}"> 
+                                            <input type="hidden" class="form-control form-control-sm check-in-id" value="{{$data->id_param}}"> 
+                                        </td> 
+                                        <td>
+                                            <input type="number" class="form-control form-control-sm check-out-val" value="{{$data->check_out}}"> 
+                                            <input type="hidden" class="form-control form-control-sm check-out-id" value="{{$data->id_param}}"> 
+                                        </td> 
+                                        <td> 
+                                            @if($data->tf_passed == 1)
+                                            <input class="form-check-input tf-passed-val" type="checkbox" value="{{$data->tf_passed}}" checked>
+                                            @else 
+                                            <input class="form-check-input tf-passed-val" type="checkbox" value="{{$data->tf_passed}}"> 
+                                            @endif
+                                            <input type="hidden" class="form-control form-control-sm tf-passed-id" value="{{$data->id_param}}">
+                                        </td> 
+                                        <td> 
+                                            @if($data->tf_not_passed == 1)
+                                            <input class="form-check-input tf-not-passed-val" type="checkbox" value="{{$data->tf_not_passed}}" checked>
+                                            @else 
+                                            <input class="form-check-input tf-not-passed-val" type="checkbox" value="{{$data->tf_not_passed}}">
+                                            @endif
+                                            <input type="hidden" class="form-control form-control-sm tf-not-passed-id" value="{{$data->id_param}}"> 
+                                        </td> 
+                                        <td> 
+                                            @if($data->tf_chk == 1)
+                                            <input class="form-check-input tf-chk-val" type="checkbox" value="{{$data->tf_chk}}" checked>
+                                            @else 
+                                            <input class="form-check-input tf-chk-val" type="checkbox" value="{{$data->tf_chk}}"> 
+                                            @endif
+                                            <input type="hidden" class="form-control form-control-sm tf-chk-id" value="{{$data->id_param}}"> 
+                                        </td> 
+                                        <td> 
+                                            @if($data->tf_clg == 1)
+                                            <input class="form-check-input tf-clg-val" type="checkbox" value="{{$data->tf_clg}}" checked>
+                                            @else 
+                                            <input class="form-check-input tf-clg-val" type="checkbox" value="{{$data->tf_clg}}"> 
+                                            @endif
+                                            <input type="hidden" class="form-control form-control-sm tf-clg-id" value="{{$data->id_param}}">
+                                        </td> 
+                                        <td> 
+                                            @if($data->tf_rpr == 1)
+                                            <input class="form-check-input tf-rpr-val" type="checkbox" value="{{$data->tf_rpr}}" checked>
+                                            @else 
+                                            <input class="form-check-input tf-rpr-val" type="checkbox" value="{{$data->tf_rpr}}"> 
+                                            @endif
+                                            <input type="hidden" class="form-control form-control-sm tf-rpr-id" value="{{$data->id_param}}">
+                                        </td> 
+                                        <td> 
+                                            @if($data->tf_rplt == 1)
+                                            <input class="form-check-input tf-rplt-val" type="checkbox" value="{{$data->tf_rplt}}" checked>
+                                            @else 
+                                            <input class="form-check-input tf-rplt-val" type="checkbox" value="{{$data->tf_rplt}}"> 
+                                            @endif
+                                            <input type="hidden" class="form-control form-control-sm tf-rplt-id" value="{{$data->id_param}}">
+                                        </td> 
+                                        <td> 
+                                            <textarea class="form-control form-control-sm note-val" rows="1">{{$data->note}}</textarea> 
+                                            <input type="hidden" class="form-control form-control-sm note-id" value="{{$data->id_param}}">
+                                        </td>
+                                    </tr>
+                                    @endif
+                                @endforeach
                             @endforeach
                         </tbody>
                         </form>
@@ -163,7 +195,113 @@
 
 @section('script')
 <script src="https://ajax.googleapis.com/ajax/libs/jquery/3.5.1/jquery.min.js"></script>
+<script>
+    $(document).ready(function () {
+        $('#btn-save').on('click', function () {
+            let idLogMaintenance = $('#id-log-maintenance').text()
+            let idType = $('#equipment-type-dropdown').find(":selected").val()
+            let idMetadata = $('#equipment-dropdown').find(":selected").val()
+            let dateInput = $('#date-input').val()
+            let idTechnician = $('#technician-dropdown').find(":selected").val()
+            let idLogData = []
+            let checkInVal = []
+            let checkOutVal = []
+            let tfPassedVal = []
+            let tfNotPassedVal = []
+            let tfChkVal = []
+            let tfClgVal = []
+            let tfRprVal = []
+            let tfRpltVal = []
+            let noteVal = []
+            
+            function storeToArrayId (classnameVal, arrayname) {
+                let $value = $(classnameVal);
+    
+                $.each($value, function(i, item) {
+                    arrayname.push($value[i].value)
+                });
+            }
 
+            function storeToArray (classnameVal, classnameId, arrayname) {
+                let $value = $(classnameVal);
+                let $id = $(classnameId);
+    
+                $.each($id, function(i, item) {
+                    arrayname.push({
+                        id: $id[i].value,
+                        value: $value[i].value
+                    })
+                });
+            }
+
+            function storeToArrayCheck (classnameVal, classnameId, arrayname) {
+                let $value = document.getElementsByClassName(classnameVal);
+                let $id = $(classnameId);
+                let checkedValue = null
+    
+                $.each($id, function(i, item) {
+                    if ($value[i].checked) {
+                        checkedValue = '1'
+                    } else {
+                        checkedValue = '0'
+                    }
+                    arrayname.push({
+                        id: $id[i].value,
+                        value: checkedValue
+                    })
+                });
+            }
+
+            storeToArrayId(".id-log-data", idLogData)
+            storeToArray(".check-in-val", ".check-in-id", checkInVal)
+            storeToArray(".check-out-val", ".check-out-id", checkOutVal)
+            storeToArrayCheck("tf-passed-val", ".tf-passed-id", tfPassedVal)
+            storeToArrayCheck("tf-not-passed-val", ".tf-not-passed-id", tfNotPassedVal)
+            storeToArrayCheck("tf-chk-val", ".tf-chk-id", tfChkVal)
+            storeToArrayCheck("tf-clg-val", ".tf-clg-id", tfClgVal)
+            storeToArrayCheck("tf-rpr-val", ".tf-rpr-id", tfRprVal)
+            storeToArrayCheck("tf-rplt-val", ".tf-rplt-id", tfRpltVal)
+            storeToArray(".note-val", ".note-id", noteVal)
+
+            console.log(tfPassedVal)
+
+            $.ajax({
+                url: "{{url('api/edit-log-maintenance')}}",
+                type: "POST",
+                data: {
+                    id_log_maintenance: idLogMaintenance,
+                    id_equipment_type: idType,
+                    id_equipment_metadata: idMetadata,
+                    maintenance_date: dateInput,
+                    id_technician: idTechnician,
+                    id_log_data: idLogData,
+                    check_in: checkInVal,
+                    check_out: checkOutVal,
+                    tf_passed: tfPassedVal,
+                    tf_not_passed: tfNotPassedVal,
+                    tf_chk: tfChkVal,
+                    tf_clg: tfClgVal,
+                    tf_rpr: tfRprVal,
+                    tf_rplt: tfRpltVal,
+                    note: noteVal,
+                    _token: '{{csrf_token()}}'
+                },
+                dataType: 'json',
+                success: function (result, textStatus, xhr) {
+                    if (xhr.status == 200) {
+                        swal({
+                            title: "Success",
+                            text: "Your Data Has Been Saved",
+                            icon: "success",
+                        }).then(function() {
+                            window.location = "{{url('maintenance-dc')}}";
+                        });
+                    }
+                }
+            })
+        })
+    })
+</script>
 @endsection
 
 @section('style')

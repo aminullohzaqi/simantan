@@ -24,15 +24,16 @@ Route::get('/dashboard', function () {
     return view('dashboard');
 })->middleware(['auth', 'verified'])->name('dashboard');
 
-Route::get('/maintenance-dc', [MaintenanceController::class, 'index'])->middleware(['auth', 'verified'])->name('maintenance-dc');
-Route::get('/maintenance-hpc', [MaintenanceController::class, 'index'])->middleware(['auth', 'verified'])->name('maintenance-hpc');
+Route::get('/maintenance-dc', [MaintenanceController::class, 'indexDc'])->middleware(['auth', 'verified'])->name('maintenance-dc');
+Route::get('/maintenance-hpc', [MaintenanceController::class, 'indexHpc'])->middleware(['auth', 'verified'])->name('maintenance-hpc');
 Route::get('/edit-maintenance-dc', [MaintenanceController::class, 'editDc'])->middleware(['auth', 'verified'])->name('maintenance-dc-edit');
 Route::post('api/equipment-metadata', [MaintenanceController::class, 'fetchEquipmentMetadata']);
 Route::post('api/item-form', [MaintenanceController::class, 'fetchItem']);
 Route::post('api/param-form', [MaintenanceController::class, 'fetchParam']);
 Route::post('api/save-log-maintenance', [MaintenanceController::class, 'saveLog']);
+Route::post('api/edit-log-maintenance', [MaintenanceController::class, 'editLog']);
 
-Route::get('/report-dc', [ReportController::class, 'index'])->middleware(['auth', 'verified'])->name('report-dc');
+Route::get('/report-dc', [ReportController::class, 'indexDc'])->middleware(['auth', 'verified'])->name('report-dc');
 Route::post('api/report-list', [ReportController::class, 'reportList']);
 
 Route::get('/logbook', function () {
