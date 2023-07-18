@@ -136,8 +136,13 @@ class MaintenanceController extends Controller
                 ]
             );
         }
-  
-        return response()->json($insert_log_maintenance);
+        
+        if ($insert_log_maintenance) {
+            return response()->json($insert_log_maintenance, 200);
+        } else {
+            return response()->json($insert_log_maintenance, 500);
+
+        }
     }
 
     public function editLog(Request $request) {

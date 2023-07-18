@@ -309,9 +309,20 @@
                 },
                 dataType: 'json',
                 success: function (result) {
-                    if (result) {
-                        swal("Success", "Your Data Has Been Saved", "success");
-                        window.location.href = "{{url('maintenance-dc')}}";
+                    if (xhr.status == 200) {
+                        swal({
+                            title: "Success",
+                            text: "Your Data Has Been Saved",
+                            icon: "success",
+                        }).then(function() {
+                            window.location = "{{url('report-dc')}}";
+                        });
+                    } else {
+                        swal({
+                            title: "Failed",
+                            text: "There is Something Wrong",
+                            icon: "error",
+                        })
                     }
                 }
             })

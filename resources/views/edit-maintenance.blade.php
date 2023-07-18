@@ -294,8 +294,14 @@
                             text: "Your Data Has Been Saved",
                             icon: "success",
                         }).then(function() {
-                            window.location = "{{url('maintenance-dc')}}";
+                            window.location = "{{url('report-dc')}}";
                         });
+                    } else {
+                        swal({
+                            title: "Failed",
+                            text: "There is Something Wrong",
+                            icon: "error",
+                        })
                     }
                 }
             })
