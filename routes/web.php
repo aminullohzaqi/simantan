@@ -35,6 +35,7 @@ Route::post('api/save-log-maintenance', [MaintenanceController::class, 'saveLog'
 Route::post('api/edit-log-maintenance', [MaintenanceController::class, 'editLog']);
 
 Route::get('/report-dc', [ReportController::class, 'indexDc'])->middleware(['auth', 'verified'])->name('report-dc');
+Route::get('/preview-report-dc', [ReportController::class, 'previewDc'])->middleware(['auth', 'verified'])->name('preview-dc');
 Route::post('api/report-list', [ReportController::class, 'reportList']);
 
 Route::get('/logbook', [LogbookController::class, 'index'])->middleware(['auth', 'verified'])->name('logbook');
