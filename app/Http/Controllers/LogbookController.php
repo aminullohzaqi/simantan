@@ -14,7 +14,7 @@ class LogbookController extends Controller
                                 ->select('logbook.id_logbook', 'logbook.visit_date', 'logbook.action', 'technician.name')
                                 ->orderBy('logbook.visit_date', 'desc')
                                 ->paginate(15);
-        return view('logbook', $data);
+        return view('logbook.logbook', $data);
     }
 
     public function preview(Request $request) {
@@ -24,13 +24,13 @@ class LogbookController extends Controller
                                 ->where('logbook.id_logbook', $request->id_logbook)
                                 ->get();
 
-        return view('preview-logbook', $data);
+        return view('logbook.preview-logbook', $data);
     }
 
     public function logbookForm() {
         $data['technicians'] = Technician::get(["id_technician", "name"]);
 
-        return view('logbook-form', $data);
+        return view('logbook.logbook-form', $data);
     }
 
     public function logbookList(Request $request) {

@@ -22,7 +22,7 @@ Route::get('/', function () {
 });
 
 Route::get('/dashboard', function () {
-    return view('dashboard');
+    return view('dashboard.dashboard');
 })->middleware(['auth', 'verified'])->name('dashboard');
 
 Route::get('/maintenance-dc', [MaintenanceController::class, 'indexDc'])->middleware(['auth', 'verified'])->name('maintenance-dc');

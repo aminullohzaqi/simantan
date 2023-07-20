@@ -18,7 +18,7 @@ class ReportController extends Controller
                                             ->orderBy('log_maintenance_fire.maintenance_date', 'desc')
                                             ->paginate(15);
                                         
-        return view('report-dc', $data);
+        return view('report.report-dc', $data);
     }
 
     public function reportList(Request $request) {
@@ -84,7 +84,6 @@ class ReportController extends Controller
             }
         }
 
-        return view('preview-dc', $data);
-        // return response()->json($data);
+        return view('report.preview-dc', $data);
     }
 }
