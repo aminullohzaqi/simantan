@@ -39,7 +39,10 @@ Route::get('/preview-report-dc', [ReportController::class, 'previewDc'])->middle
 Route::post('api/report-list', [ReportController::class, 'reportList']);
 
 Route::get('/logbook', [LogbookController::class, 'index'])->middleware(['auth', 'verified'])->name('logbook');
+Route::get('/preview-logbook', [LogbookController::class, 'preview'])->middleware(['auth', 'verified'])->name('preview-logbook');
+Route::get('/add-logbook', [LogbookController::class, 'logbookForm'])->middleware(['auth', 'verified'])->name('add-logbook');
 Route::post('api/add-logbook', [LogbookController::class, 'addLogbook']);
+Route::post('api/logbook-list', [LogbookController::class, 'logbookList']);
 
 Route::middleware('auth')->group(function () {
     Route::get('/profile', [ProfileController::class, 'edit'])->name('profile.edit');
