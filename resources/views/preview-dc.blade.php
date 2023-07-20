@@ -173,7 +173,7 @@
     }
     .table-maintenance thead th {
         padding: 0 1em;
-        text-align: center;
+        text-align: left;
         vertical-align: middle;
     }
     .table-maintenance tbody td {
