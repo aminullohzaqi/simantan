@@ -9,5 +9,5 @@ class LogMaintenanceFire extends Model
 {
     use HasFactory;
 
-    protected $table = "log_maintenance_fire";
+    protected $table = "log_maintenance_dc";
 }

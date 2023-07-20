@@ -10,12 +10,12 @@ class ReportController extends Controller
 {
     public function indexDc() {
         $data['equipment_type'] = EquipmentType::get(["id_equipment_type", "equipment_type"]);
-        $data['maintenance_data_index'] = DB::table('log_maintenance_fire')
-                                            ->join('equipment_metadata', 'log_maintenance_fire.id_equipment_metadata', '=', 'equipment_metadata.id_equipment_metadata')
-                                            ->join('technician', 'log_maintenance_fire.id_technician', '=', 'technician.id_technician')
+        $data['maintenance_data_index'] = DB::table('log_maintenance_dc')
+                                            ->join('equipment_metadata', 'log_maintenance_dc.id_equipment_metadata', '=', 'equipment_metadata.id_equipment_metadata')
+                                            ->join('technician', 'log_maintenance_dc.id_technician', '=', 'technician.id_technician')
                                             ->join('equipment_type', 'equipment_metadata.id_equipment_type', '=', 'equipment_type.id_equipment_type')
-                                            ->select('log_maintenance_fire.id_log_maintenance', 'log_maintenance_fire.id_equipment_metadata', 'log_maintenance_fire.maintenance_date', 'equipment_type.id_equipment_type', 'equipment_type.equipment_type', 'equipment_metadata.equipment', 'technician.name')
-                                            ->orderBy('log_maintenance_fire.maintenance_date', 'desc')
+                                            ->select('log_maintenance_dc.id_log_maintenance', 'log_maintenance_dc.id_equipment_metadata', 'log_maintenance_dc.maintenance_date', 'equipment_type.id_equipment_type', 'equipment_type.equipment_type', 'equipment_metadata.equipment', 'technician.name')
+                                            ->orderBy('log_maintenance_dc.maintenance_date', 'desc')
                                             ->paginate(15);
                                         
         return view('report.report-dc', $data);
@@ -23,22 +23,22 @@ class ReportController extends Controller
 
     public function reportList(Request $request) {
         if ($request->id_equipment_type == null) {
-            $data['maintenance_data'] = DB::table('log_maintenance_fire')
-                                            ->join('equipment_metadata', 'log_maintenance_fire.id_equipment_metadata', '=', 'equipment_metadata.id_equipment_metadata')
-                                            ->join('technician', 'log_maintenance_fire.id_technician', '=', 'technician.id_technician')
+            $data['maintenance_data'] = DB::table('log_maintenance_dc')
+                                            ->join('equipment_metadata', 'log_maintenance_dc.id_equipment_metadata', '=', 'equipment_metadata.id_equipment_metadata')
+                                            ->join('technician', 'log_maintenance_dc.id_technician', '=', 'technician.id_technician')
                                             ->join('equipment_type', 'equipment_metadata.id_equipment_type', '=', 'equipment_type.id_equipment_type')
-                                            ->select('log_maintenance_fire.id_log_maintenance', 'log_maintenance_fire.id_equipment_metadata', 'log_maintenance_fire.maintenance_date', 'equipment_type.id_equipment_type', 'equipment_type.equipment_type', 'equipment_metadata.equipment', 'technician.name')
-                                            ->whereDate('log_maintenance_fire.maintenance_date', '>=', $request->start_date)
-                                            ->whereDate('log_maintenance_fire.maintenance_date', '<=', $request->end_date)
+                                            ->select('log_maintenance_dc.id_log_maintenance', 'log_maintenance_dc.id_equipment_metadata', 'log_maintenance_dc.maintenance_date', 'equipment_type.id_equipment_type', 'equipment_type.equipment_type', 'equipment_metadata.equipment', 'technician.name')
+                                            ->whereDate('log_maintenance_dc.maintenance_date', '>=', $request->start_date)
+                                            ->whereDate('log_maintenance_dc.maintenance_date', '<=', $request->end_date)
                                             ->get();
         } else {
-            $data['maintenance_data'] = DB::table('log_maintenance_fire')
-                                            ->join('equipment_metadata', 'log_maintenance_fire.id_equipment_metadata', '=', 'equipment_metadata.id_equipment_metadata')
-                                            ->join('technician', 'log_maintenance_fire.id_technician', '=', 'technician.id_technician')
+            $data['maintenance_data'] = DB::table('log_maintenance_dc')
+                                            ->join('equipment_metadata', 'log_maintenance_dc.id_equipment_metadata', '=', 'equipment_metadata.id_equipment_metadata')
+                                            ->join('technician', 'log_maintenance_dc.id_technician', '=', 'technician.id_technician')
                                             ->join('equipment_type', 'equipment_metadata.id_equipment_type', '=', 'equipment_type.id_equipment_type')
-                                            ->select('log_maintenance_fire.id_log_maintenance', 'log_maintenance_fire.id_equipment_metadata','log_maintenance_fire.maintenance_date', 'equipment_type.id_equipment_type', 'equipment_type.equipment_type', 'equipment_metadata.equipment', 'technician.name')
-                                            ->whereDate('log_maintenance_fire.maintenance_date', '>=', $request->start_date)
-                                            ->whereDate('log_maintenance_fire.maintenance_date', '<=', $request->end_date)
+                                            ->select('log_maintenance_dc.id_log_maintenance', 'log_maintenance_dc.id_equipment_metadata','log_maintenance_dc.maintenance_date', 'equipment_type.id_equipment_type', 'equipment_type.equipment_type', 'equipment_metadata.equipment', 'technician.name')
+                                            ->whereDate('log_maintenance_dc.maintenance_date', '>=', $request->start_date)
+                                            ->whereDate('log_maintenance_dc.maintenance_date', '<=', $request->end_date)
                                             ->where('equipment_type.id_equipment_type', $request->id_equipment_type)
                                             ->get();
             
@@ -47,20 +47,20 @@ class ReportController extends Controller
     }
 
     public function previewDc(Request $request) {
-        $data['equipment_form'] = DB::table('log_maintenance_fire')
-                                    ->join('equipment_metadata', 'log_maintenance_fire.id_equipment_metadata', '=', 'equipment_metadata.id_equipment_metadata')
-                                    ->join('technician', 'log_maintenance_fire.id_technician', '=', 'technician.id_technician')
+        $data['equipment_form'] = DB::table('log_maintenance_dc')
+                                    ->join('equipment_metadata', 'log_maintenance_dc.id_equipment_metadata', '=', 'equipment_metadata.id_equipment_metadata')
+                                    ->join('technician', 'log_maintenance_dc.id_technician', '=', 'technician.id_technician')
                                     ->join('equipment_type', 'equipment_metadata.id_equipment_type', '=', 'equipment_type.id_equipment_type')
-                                    ->select('log_maintenance_fire.id_log_maintenance', 'log_maintenance_fire.maintenance_date', 'equipment_type.id_equipment_type', 'equipment_type.equipment_type', 'equipment_metadata.id_equipment_metadata', 'equipment_metadata.equipment', 'equipment_metadata.model', 'technician.id_technician', 'technician.name')
-                                    ->where('log_maintenance_fire.id_log_maintenance', $request->id_log_maintenance)
+                                    ->select('log_maintenance_dc.id_log_maintenance', 'log_maintenance_dc.maintenance_date', 'equipment_type.id_equipment_type', 'equipment_type.equipment_type', 'equipment_metadata.id_equipment_metadata', 'equipment_metadata.equipment', 'equipment_metadata.model', 'technician.id_technician', 'technician.name')
+                                    ->where('log_maintenance_dc.id_log_maintenance', $request->id_log_maintenance)
                                     ->get();
 
-        $data['maintenance_data'] = DB::table('log_data_fire')
-                                    ->join('params', 'log_data_fire.id_param', '=', 'params.id_param')
+        $data['maintenance_data'] = DB::table('log_data_dc')
+                                    ->join('params', 'log_data_dc.id_param', '=', 'params.id_param')
                                     ->join('items', 'params.id_item', '=', 'items.id_item')
                                     ->join('equipment_metadata', 'items.id_equipment_metadata', '=', 'equipment_metadata.id_equipment_metadata')
-                                    ->select('log_data_fire.*', 'items.id_item', 'items.item', 'params.id_param', 'params.param')
-                                    ->where('log_data_fire.maintenance_date', $request->maintenance_date)
+                                    ->select('log_data_dc.*', 'items.id_item', 'items.item', 'params.id_param', 'params.param')
+                                    ->where('log_data_dc.maintenance_date', $request->maintenance_date)
                                     ->where('equipment_metadata.id_equipment_metadata', $request->id_equipment_metadata)
                                     ->get();
 
