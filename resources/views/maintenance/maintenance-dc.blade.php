@@ -50,7 +50,7 @@
                                     <label for="">Maintenance Date</label>
                                 </td>
                                 <td>
-                                    <input id="date-input" class="form-control" type="date" name="" required>
+                                    <input id="date-input" class="form-control" type="date" required>
                                 </td>
                             </div>
                         </tr>
