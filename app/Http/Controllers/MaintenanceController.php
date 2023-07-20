@@ -28,20 +28,20 @@ class MaintenanceController extends Controller
     }
 
     public function editDc(Request $request) {
-        $data['equipment_form'] = DB::table('log_maintenance_fire')
-                                    ->join('equipment_metadata', 'log_maintenance_fire.id_equipment_metadata', '=', 'equipment_metadata.id_equipment_metadata')
-                                    ->join('technician', 'log_maintenance_fire.id_technician', '=', 'technician.id_technician')
+        $data['equipment_form'] = DB::table('log_maintenance_dc')
+                                    ->join('equipment_metadata', 'log_maintenance_dc.id_equipment_metadata', '=', 'equipment_metadata.id_equipment_metadata')
+                                    ->join('technician', 'log_maintenance_dc.id_technician', '=', 'technician.id_technician')
                                     ->join('equipment_type', 'equipment_metadata.id_equipment_type', '=', 'equipment_type.id_equipment_type')
-                                    ->select('log_maintenance_fire.id_log_maintenance', 'log_maintenance_fire.maintenance_date', 'equipment_type.id_equipment_type', 'equipment_type.equipment_type', 'equipment_metadata.id_equipment_metadata', 'equipment_metadata.equipment', 'technician.id_technician', 'technician.name')
-                                    ->where('log_maintenance_fire.id_log_maintenance', $request->id_log_maintenance)
+                                    ->select('log_maintenance_dc.id_log_maintenance', 'log_maintenance_dc.maintenance_date', 'equipment_type.id_equipment_type', 'equipment_type.equipment_type', 'equipment_metadata.id_equipment_metadata', 'equipment_metadata.equipment', 'technician.id_technician', 'technician.name')
+                                    ->where('log_maintenance_dc.id_log_maintenance', $request->id_log_maintenance)
                                     ->get();
 
-        $data['maintenance_data'] = DB::table('log_data_fire')
-                                    ->join('params', 'log_data_fire.id_param', '=', 'params.id_param')
+        $data['maintenance_data'] = DB::table('log_data_dc')
+                                    ->join('params', 'log_data_dc.id_param', '=', 'params.id_param')
                                     ->join('items', 'params.id_item', '=', 'items.id_item')
                                     ->join('equipment_metadata', 'items.id_equipment_metadata', '=', 'equipment_metadata.id_equipment_metadata')
-                                    ->select('log_data_fire.*', 'items.id_item', 'items.item', 'params.id_param', 'params.param')
-                                    ->where('log_data_fire.maintenance_date', $request->maintenance_date)
+                                    ->select('log_data_dc.*', 'items.id_item', 'items.item', 'params.id_param', 'params.param')
+                                    ->where('log_data_dc.maintenance_date', $request->maintenance_date)
                                     ->where('equipment_metadata.id_equipment_metadata', $request->id_equipment_metadata)
                                     ->get();
 
@@ -109,7 +109,7 @@ class MaintenanceController extends Controller
         $tf_rplt = $request->tf_rplt;
         $note = $request->note;
 
-        $insert_log_maintenance = DB::table('log_maintenance_fire')->insert(
+        $insert_log_maintenance = DB::table('log_maintenance_dc')->insert(
             [
                 'id_equipment_metadata' => $id_equipment_metadata,
                 'maintenance_date' => $maintenance_date,
@@ -120,7 +120,7 @@ class MaintenanceController extends Controller
         $arrayLength = count($check_in);
 
         for ($x = 0; $x < $arrayLength; $x++) {
-            DB::table('log_data_fire')->insert(
+            DB::table('log_data_dc')->insert(
                 [
                     'id_param' => $check_in[$x]['id'],
                     'maintenance_date' => $maintenance_date,
@@ -162,7 +162,7 @@ class MaintenanceController extends Controller
         $tf_rplt = $request->tf_rplt;
         $note = $request->note;
 
-        $update_log_maintenance = DB::table('log_maintenance_fire')
+        $update_log_maintenance = DB::table('log_maintenance_dc')
                                     ->where('id_log_maintenance', $id_log_maintenance)
                                     ->update([
                                         'id_equipment_metadata' => $id_equipment_metadata,
@@ -173,7 +173,7 @@ class MaintenanceController extends Controller
         $arrayLength = count($id_log_data);
 
         for ($x = 0; $x < $arrayLength; $x++) {
-            DB::table('log_data_fire')
+            DB::table('log_data_dc')
                 ->where('id_log_data', $id_log_data[$x])
                 ->update(
                 [
