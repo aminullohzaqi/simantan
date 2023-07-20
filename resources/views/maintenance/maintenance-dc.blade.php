@@ -306,7 +306,7 @@
                     _token: '{{csrf_token()}}'
                 },
                 dataType: 'json',
-                success: function (result) {
+                success: function (result, textStatus, xhr) {
                     if (xhr.status == 200) {
                         swal({
                             title: "Success",

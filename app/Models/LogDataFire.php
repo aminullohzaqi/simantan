@@ -9,5 +9,5 @@ class LogDataFire extends Model
 {
     use HasFactory;
 
-    protected $table = "log_data_fire";
+    protected $table = "log_data_dc";
 }

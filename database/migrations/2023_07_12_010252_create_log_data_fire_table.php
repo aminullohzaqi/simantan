@@ -37,6 +37,6 @@ return new class extends Migration
      */
     public function down()
     {
-        Schema::dropIfExists('log_date_fire');
+        Schema::dropIfExists('log_data_fire');
     }
 };
