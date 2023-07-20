@@ -17,7 +17,7 @@ class MaintenanceController extends Controller
     public function indexDc() {
         $data['equipment_type'] = EquipmentType::get(["id_equipment_type", "equipment_type"]);
         $data['technicians'] = Technician::get(["id_technician", "name"]);
-        return view('maintenance-dc', $data);
+        return view('maintenance.maintenance-dc', $data);
     }
 
     public function fetchEquipmentMetadata(Request $request) {
@@ -65,7 +65,7 @@ class MaintenanceController extends Controller
             }
         }
 
-        return view('edit-maintenance', $data);
+        return view('maintenance.edit-maintenance', $data);
         // return response()->json($data);
     }
 
