@@ -9,8 +9,40 @@ use App\Models\Technician;
 class LogbookController extends Controller
 {
     public function index() {
-        $data['technicians'] = Technician::get(["id_technician", "name"]);
+        $data['logbook_data'] = DB::table('logbook')
+                                ->join('technician', 'logbook.id_technician', '=', 'technician.id_technician')
+                                ->select('logbook.id_logbook', 'logbook.visit_date', 'logbook.action', 'technician.name')
+                                ->orderBy('logbook.visit_date', 'desc')
+                                ->paginate(15);
         return view('logbook', $data);
+    }
+
+    public function preview(Request $request) {
+        $data['logbook_data'] = DB::table('logbook')
+                                ->join('technician', 'logbook.id_technician', '=', 'technician.id_technician')
+                                ->select('logbook.id_logbook', 'logbook.visit_date', 'logbook.action', 'logbook.remark', 'technician.name')
+                                ->where('logbook.id_logbook', $request->id_logbook)
+                                ->get();
+
+        return view('preview-logbook', $data);
+    }
+
+    public function logbookForm() {
+        $data['technicians'] = Technician::get(["id_technician", "name"]);
+
+        return view('logbook-form', $data);
+    }
+
+    public function logbookList(Request $request) {
+        $data['logbook_data'] = DB::table('logbook')
+                                ->join('technician', 'logbook.id_technician', '=', 'technician.id_technician')
+                                ->select('logbook.id_logbook', 'logbook.visit_date', 'logbook.action', 'technician.name')
+                                ->whereDate('logbook.visit_date', '>=', $request->start_date)
+                                ->whereDate('logbook.visit_date', '<=', $request->end_date)
+                                ->orderBy('logbook.visit_date', 'desc')
+                                ->get();    
+        
+        return response()->json($data);
     }
 
     public function addLogbook(Request $request) {

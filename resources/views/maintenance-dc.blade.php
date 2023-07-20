@@ -225,7 +225,7 @@
                     }
                 })
             } else {
-                swal("Input Needed", "Please Input The Form", "warning");
+                swal("Input Needed", "Please Input The Form", "warning")
             }
         })
     })
@@ -285,8 +285,6 @@
             storeToArrayCheck("tf-rpr-val", ".tf-rpr-id", tfRprVal)
             storeToArrayCheck("tf-rplt-val", ".tf-rplt-id", tfRpltVal)
             storeToArray(".note-val", ".note-id", noteVal)
-
-            console.log(tfChkVal, tfClgVal, tfRprVal, tfRpltVal, noteVal)
 
             $.ajax({
                 url: "{{url('api/save-log-maintenance')}}",
