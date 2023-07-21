@@ -9,6 +9,7 @@ use Illuminate\Http\Request;
 class ReportController extends Controller
 {
     public function indexDc() {
+        $data['users'] = auth()->user();
         $data['equipment_type'] = EquipmentType::get(["id_equipment_type", "equipment_type"]);
         $data['maintenance_data_index'] = DB::table('log_maintenance_dc')
                                             ->join('equipment_metadata', 'log_maintenance_dc.id_equipment_metadata', '=', 'equipment_metadata.id_equipment_metadata')
@@ -47,6 +48,7 @@ class ReportController extends Controller
     }
 
     public function previewDc(Request $request) {
+        $data['users'] = auth()->user();
         $data['equipment_form'] = DB::table('log_maintenance_dc')
                                     ->join('equipment_metadata', 'log_maintenance_dc.id_equipment_metadata', '=', 'equipment_metadata.id_equipment_metadata')
                                     ->join('technician', 'log_maintenance_dc.id_technician', '=', 'technician.id_technician')
