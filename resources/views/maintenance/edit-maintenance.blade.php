@@ -176,6 +176,20 @@
                                     @endif
                                 @endforeach
                             @endforeach
+                            <tr>
+                                <td colspan="3">
+                                    <div class="d-flex justify-content-start">
+                                        <label class="">ARRIVAL TIME </label>
+                                        <input id="arrival-time" type="datetime-local" class="form-control form-control-sm" value="{{$equipment_form[0]->arrival_time}}">
+                                    </div>
+                                </td>
+                                <td colspan="3">
+                                    <div class="d-flex justify-content-start">
+                                        <label class="">FINISH TIME </label>
+                                        <input id="finish-time" type="datetime-local" class="form-control form-control-sm" value="{{$equipment_form[0]->finish_time}}">
+                                    </div>
+                                </td>
+                            </tr>
                         </tbody>
                         </form>
                     </table>
@@ -202,6 +216,8 @@
             let idType = $('#equipment-type-dropdown').find(":selected").val()
             let idMetadata = $('#equipment-dropdown').find(":selected").val()
             let dateInput = $('#date-input').val()
+            let arrivalTime = $('#arrival-time').val()
+            let finishTime = $('#finish-time').val()
             let idTechnician = $('#technician-dropdown').find(":selected").val()
             let idLogData = []
             let checkInVal = []
@@ -273,6 +289,8 @@
                     id_equipment_type: idType,
                     id_equipment_metadata: idMetadata,
                     maintenance_date: dateInput,
+                    arrival_time: arrivalTime,
+                    finish_time: finishTime,
                     id_technician: idTechnician,
                     id_log_data: idLogData,
                     check_in: checkInVal,

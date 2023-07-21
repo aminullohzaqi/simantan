@@ -221,6 +221,21 @@
                             })
                             i++
                         })
+                        tabl += 
+                            `<tr>
+                                <td colspan="3">
+                                    <div class="d-flex justify-content-start">
+                                        <label class="">ARRIVAL TIME </label>
+                                        <input id="arrival-time" type="datetime-local" class="form-control form-control-sm">
+                                    </div>
+                                </td>
+                                <td colspan="3">
+                                    <div class="d-flex justify-content-start">
+                                        <label class="">FINISH TIME </label>
+                                        <input id="finish-time" type="datetime-local" class="form-control form-control-sm">
+                                    </div>
+                                </td>
+                            </tr>`
                         $("#form-maintenance").append(tabl)
                     }
                 })
@@ -235,6 +250,8 @@
             let idType = $('#equipment-type-dropdown').find(":selected").val()
             let idMetadata = $('#equipment-dropdown').find(":selected").val()
             let dateInput = $('#date-input').val()
+            let arrivalTime = $('#arrival-time').val()
+            let finishTime = $('#finish-time').val()
             let idTechnician = $('#technician-dropdown').find(":selected").val()
             let checkInVal = []
             let checkOutVal = []
@@ -293,6 +310,8 @@
                     id_equipment_type: idType,
                     id_equipment_metadata: idMetadata,
                     maintenance_date: dateInput,
+                    arrival_time: arrivalTime,
+                    finish_time: finishTime,
                     id_technician: idTechnician,
                     check_in: checkInVal,
                     check_out: checkOutVal,

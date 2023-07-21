@@ -32,7 +32,7 @@ class MaintenanceController extends Controller
                                     ->join('equipment_metadata', 'log_maintenance_dc.id_equipment_metadata', '=', 'equipment_metadata.id_equipment_metadata')
                                     ->join('technician', 'log_maintenance_dc.id_technician', '=', 'technician.id_technician')
                                     ->join('equipment_type', 'equipment_metadata.id_equipment_type', '=', 'equipment_type.id_equipment_type')
-                                    ->select('log_maintenance_dc.id_log_maintenance', 'log_maintenance_dc.maintenance_date', 'equipment_type.id_equipment_type', 'equipment_type.equipment_type', 'equipment_metadata.id_equipment_metadata', 'equipment_metadata.equipment', 'technician.id_technician', 'technician.name')
+                                    ->select('log_maintenance_dc.id_log_maintenance', 'log_maintenance_dc.maintenance_date', 'log_maintenance_dc.arrival_time', 'log_maintenance_dc.finish_time', 'equipment_type.id_equipment_type', 'equipment_type.equipment_type', 'equipment_metadata.id_equipment_metadata', 'equipment_metadata.equipment', 'technician.id_technician', 'technician.name')
                                     ->where('log_maintenance_dc.id_log_maintenance', $request->id_log_maintenance)
                                     ->get();
 
@@ -98,6 +98,8 @@ class MaintenanceController extends Controller
         $id_equipment_type = $request->id_equipment_type;
         $id_equipment_metadata = $request->id_equipment_metadata;
         $maintenance_date = $request->maintenance_date;
+        $arrival_time = $request->arrival_time;
+        $finish_time = $request->finish_time;
         $id_technician = $request->id_technician;
         $check_in = $request->check_in;
         $check_out = $request->check_out;
@@ -113,7 +115,9 @@ class MaintenanceController extends Controller
             [
                 'id_equipment_metadata' => $id_equipment_metadata,
                 'maintenance_date' => $maintenance_date,
-                'id_technician' => $id_technician
+                'id_technician' => $id_technician,
+                'arrival_time' => $arrival_time,
+                'finish_time' => $finish_time
             ]
         );
 
@@ -150,6 +154,8 @@ class MaintenanceController extends Controller
         $id_equipment_type = $request->id_equipment_type;
         $id_equipment_metadata = $request->id_equipment_metadata;
         $maintenance_date = $request->maintenance_date;
+        $arrival_time = $request->arrival_time;
+        $finish_time = $request->finish_time;
         $id_technician = $request->id_technician;
         $id_log_data = $request->id_log_data;
         $check_in = $request->check_in;
@@ -167,7 +173,9 @@ class MaintenanceController extends Controller
                                     ->update([
                                         'id_equipment_metadata' => $id_equipment_metadata,
                                         'maintenance_date' => $maintenance_date,
-                                        'id_technician' => $id_technician
+                                        'id_technician' => $id_technician,
+                                        'arrival_time' => $arrival_time,
+                                        'finish_time' => $finish_time
                                     ]);
 
         $arrayLength = count($id_log_data);
