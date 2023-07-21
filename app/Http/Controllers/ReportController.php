@@ -51,7 +51,7 @@ class ReportController extends Controller
                                     ->join('equipment_metadata', 'log_maintenance_dc.id_equipment_metadata', '=', 'equipment_metadata.id_equipment_metadata')
                                     ->join('technician', 'log_maintenance_dc.id_technician', '=', 'technician.id_technician')
                                     ->join('equipment_type', 'equipment_metadata.id_equipment_type', '=', 'equipment_type.id_equipment_type')
-                                    ->select('log_maintenance_dc.id_log_maintenance', 'log_maintenance_dc.maintenance_date', 'equipment_type.id_equipment_type', 'equipment_type.equipment_type', 'equipment_metadata.id_equipment_metadata', 'equipment_metadata.equipment', 'equipment_metadata.model', 'technician.id_technician', 'technician.name')
+                                    ->select('log_maintenance_dc.id_log_maintenance', 'log_maintenance_dc.maintenance_date', 'log_maintenance_dc.arrival_time','log_maintenance_dc.finish_time', 'equipment_type.id_equipment_type', 'equipment_type.equipment_type', 'equipment_metadata.id_equipment_metadata', 'equipment_metadata.equipment', 'equipment_metadata.model', 'technician.id_technician', 'technician.name')
                                     ->where('log_maintenance_dc.id_log_maintenance', $request->id_log_maintenance)
                                     ->get();
 

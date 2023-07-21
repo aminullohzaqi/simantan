@@ -151,6 +151,20 @@
                                 @endif
                             @endforeach
                         @endforeach
+                        <tr>
+                            <td colspan="5">
+                                Arrival Time: {{$equipment_form[0]->arrival_time}}
+                            </td>
+                            <td colspan="6">
+                                Finish Time: {{$equipment_form[0]->finish_time}}
+                            </td>
+                        </tr>
+                        <tr>
+                            <td colspan="11">
+                                <div class="mb-7 text-center">Technician</div>
+                                <div class="text-center">{{$equipment_form[0]->name}}</div>
+                            </td>
+                        </tr>
                     </tbody>
                     </form>
                 </table>
