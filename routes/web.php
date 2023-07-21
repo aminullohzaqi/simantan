@@ -22,7 +22,8 @@ Route::get('/', function () {
 });
 
 Route::get('/dashboard', function () {
-    return view('dashboard.dashboard');
+    $data['users'] = auth()->user();
+    return view('dashboard.dashboard', $data);
 })->middleware(['auth', 'verified'])->name('dashboard');
 
 Route::get('/maintenance-dc', [MaintenanceController::class, 'indexDc'])->middleware(['auth', 'verified'])->name('maintenance-dc');

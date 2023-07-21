@@ -1,6 +1,6 @@
 @extends('templates.default')
 
 @php
-    $pretitle = 'Aminulloh Zaqi';
+    $pretitle = $users->name;
     $title = 'Dashboard'
 @endphp
