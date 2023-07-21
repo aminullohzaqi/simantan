@@ -156,6 +156,28 @@
             let idTechnician = $('#technician-dropdown').find(":selected").val()
             if (idType !== "" && idMetadata !== "" && dateInput !== "" && idTechnician !== "") {
                 $.ajax({
+                    url: "{{url('api/valid-form')}}",
+                    type: "POST",
+                    data: {
+                        id_equipment_metadata: idMetadata,
+                        maintenance_date: dateInput,
+                        _token: '{{csrf_token()}}'
+                    },
+                    dataType: 'json',
+                    success: function (result) {
+                        if (result.length > 0) {
+                            swal({
+                                title: "Maintenance Has Been Input",
+                                text: "Equipment has been input on selected date. Please edit if any update",
+                                icon: "warning",
+                            }).then(function() {
+                                window.location = "{{url('report-dc')}}";
+                            });
+                        } 
+                    }
+                })
+
+                $.ajax({
                     url: "{{url('api/item-form')}}",
                     type: "POST",
                     data: {
