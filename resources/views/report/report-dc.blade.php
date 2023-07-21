@@ -2,7 +2,7 @@
 @extends('partial.head')
 
 @php
-    $pretitle = 'Aminulloh Zaqi';
+    $pretitle = $users->name;
     $title = 'Report Maintenance Data Center'
 @endphp
 

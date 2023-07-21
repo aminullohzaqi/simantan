@@ -9,6 +9,7 @@ use App\Models\Technician;
 class LogbookController extends Controller
 {
     public function index() {
+        $data['users'] = auth()->user();
         $data['logbook_data'] = DB::table('logbook')
                                 ->join('technician', 'logbook.id_technician', '=', 'technician.id_technician')
                                 ->select('logbook.id_logbook', 'logbook.visit_date', 'logbook.action', 'technician.name')
@@ -18,6 +19,7 @@ class LogbookController extends Controller
     }
 
     public function preview(Request $request) {
+        $data['users'] = auth()->user();
         $data['logbook_data'] = DB::table('logbook')
                                 ->join('technician', 'logbook.id_technician', '=', 'technician.id_technician')
                                 ->select('logbook.id_logbook', 'logbook.visit_date', 'logbook.action', 'logbook.remark', 'technician.name')
@@ -28,6 +30,7 @@ class LogbookController extends Controller
     }
 
     public function logbookForm() {
+        $data['users'] = auth()->user();
         $data['technicians'] = Technician::get(["id_technician", "name"]);
 
         return view('logbook.logbook-form', $data);
