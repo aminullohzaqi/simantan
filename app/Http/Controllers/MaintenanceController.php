@@ -69,6 +69,15 @@ class MaintenanceController extends Controller
         // return response()->json($data);
     }
 
+    public function validForm(Request $request) {
+        $validForm = DB::table('log_maintenance_dc')
+                        ->where('id_equipment_metadata', $request->id_equipment_metadata)
+                        ->where('maintenance_date', $request->maintenance_date)
+                        ->get();
+        
+        return response()->json($validForm);
+    }
+
     public function fetchItem(Request $request) {
         $data['form_item'] = Item::where("id_equipment_metadata", $request->id_equipment_metadata)
                                 ->get(["id_item", "item"]);

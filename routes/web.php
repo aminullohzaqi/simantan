@@ -29,6 +29,7 @@ Route::get('/maintenance-dc', [MaintenanceController::class, 'indexDc'])->middle
 Route::get('/maintenance-hpc', [MaintenanceController::class, 'indexHpc'])->middleware(['auth', 'verified'])->name('maintenance-hpc');
 Route::get('/edit-maintenance-dc', [MaintenanceController::class, 'editDc'])->middleware(['auth', 'verified'])->name('maintenance-dc-edit');
 Route::post('api/equipment-metadata', [MaintenanceController::class, 'fetchEquipmentMetadata']);
+Route::post('api/valid-form', [MaintenanceController::class, 'validForm']);
 Route::post('api/item-form', [MaintenanceController::class, 'fetchItem']);
 Route::post('api/param-form', [MaintenanceController::class, 'fetchParam']);
 Route::post('api/save-log-maintenance', [MaintenanceController::class, 'saveLog']);
