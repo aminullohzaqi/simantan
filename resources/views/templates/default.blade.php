@@ -4,7 +4,11 @@
   <body >
     <div class="page">
       <!-- Sidebar -->
-      @include('partial.sidebar')
+      @if($users->role == 1)
+        @include('partial.admin-sidebar')
+      @else
+        @include('partial.sidebar')
+      @endif
       <div class="page-wrapper">
         <!-- Page header -->
         <div class="page-header d-print-none">
