@@ -4,6 +4,7 @@ use App\Http\Controllers\ProfileController;
 use App\Http\Controllers\MaintenanceController;
 use App\Http\Controllers\ReportController;
 use App\Http\Controllers\LogbookController;
+use App\Http\Controllers\UserController;
 use Illuminate\Support\Facades\Route;
 
 /*
@@ -45,6 +46,11 @@ Route::get('/preview-logbook', [LogbookController::class, 'preview'])->middlewar
 Route::get('/add-logbook', [LogbookController::class, 'logbookForm'])->middleware(['auth', 'verified'])->name('add-logbook');
 Route::post('api/add-logbook', [LogbookController::class, 'addLogbook']);
 Route::post('api/logbook-list', [LogbookController::class, 'logbookList']);
+
+Route::get('/users', [UserController::class, 'index'])->middleware(['auth', 'verified'])->name('users');
+Route::get('/add-user', [UserController::class, 'userForm'])->middleware(['auth', 'verified'])->name('add-user');
+Route::post('api/user-list', [UserController::class, 'userList']);
+Route::post('api/add-user', [UserController::class, 'addUser']);
 
 Route::middleware('auth')->group(function () {
     Route::get('/profile', [ProfileController::class, 'edit'])->name('profile.edit');
