@@ -49,11 +49,12 @@
                             <th>Level</th>
                             <th>Created At</th>
                             <th>Updated At</th>
+                            <th>Action</th>
                         </tr>
                     </thead>
                     <tbody id="user-list">
                         @foreach($users_data as $data)
-                            <tr onclick="toDetailPage({{$data->id}})">
+                            <tr>
                                 <td>{{$data->name}}</td>
                                 <td>{{$data->email}}</td>
                                 @if($data->role == 1)
@@ -64,6 +65,10 @@
                                 <td>{{$data->level}}</td>
                                 <td>{{$data->created_at}}</td>
                                 <td>{{$data->updated_at}}</td>
+                                <td>
+                                    <span><button class="btn btn-warning" onclick="toDetailPage({{$data->id}})">Edit</button></span>
+                                    <span><button class="btn btn-primary" onclick="toChangePassword({{$data->id}})">Change Password</button></span>
+                                </td>
                             </tr>
                         @endforeach
                     </tbody>
@@ -109,6 +114,10 @@
                                         <td>${user.level}</td>
                                         <td>${user.created_at}</td>
                                         <td>${user.updated_at}</td>
+                                        <td>
+                                            <span><button class="btn btn-warning" onclick="toDetailPage(${user.id})">Edit</button></span>
+                                            <span><button class="btn btn-primary" onclick="toChangePassword(${user.id})">Change Password</button></span>
+                                        </td>
                                     </tr>`
                         })
                         $("#user-list").append(tabl)
@@ -124,8 +133,12 @@
         window.location.href = "{{route('add-user')}}"
     }
 
-    function toDetailPage (visit_date, id_logbook) {
-        window.location.href = "{{route('preview-logbook')}}?id_logbook=" + id_logbook + '&visit_date=' + visit_date
+    function toDetailPage (id_user) {
+        window.location.href = "{{route('edit-user')}}?id_user=" + id_user
+    }
+
+    function toChangePassword (id_user) {
+        window.location.href = "{{route('change-password')}}?id_user=" + id_user
     }
 </script>
 @endsection

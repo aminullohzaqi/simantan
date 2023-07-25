@@ -279,8 +279,6 @@
             storeToArrayCheck("tf-rplt-val", ".tf-rplt-id", tfRpltVal)
             storeToArray(".note-val", ".note-id", noteVal)
 
-            console.log(tfPassedVal)
-
             $.ajax({
                 url: "{{url('api/edit-log-maintenance')}}",
                 type: "POST",

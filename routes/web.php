@@ -49,8 +49,12 @@ Route::post('api/logbook-list', [LogbookController::class, 'logbookList']);
 
 Route::get('/users', [UserController::class, 'index'])->middleware(['auth', 'verified'])->name('users');
 Route::get('/add-user', [UserController::class, 'userForm'])->middleware(['auth', 'verified'])->name('add-user');
+Route::get('/edit-user', [UserController::class, 'editUserPage'])->middleware(['auth', 'verified'])->name('edit-user');
+Route::get('/change-password', [UserController::class, 'changePasswordPage'])->middleware(['auth', 'verified'])->name('change-password');
 Route::post('api/user-list', [UserController::class, 'userList']);
 Route::post('api/add-user', [UserController::class, 'addUser']);
+Route::post('api/edit-user', [UserController::class, 'editUser']);
+Route::post('api/change-password', [UserController::class, 'changePassword']);
 
 Route::middleware('auth')->group(function () {
     Route::get('/profile', [ProfileController::class, 'edit'])->name('profile.edit');
