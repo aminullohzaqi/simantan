@@ -12,7 +12,7 @@ class UserController extends Controller
         $data['users'] = auth()->user();
         $data['users_data'] = DB::table('users')
                                 ->select('id', 'name', 'email', 'created_at', 'updated_at', 'role', 'level')
-                                ->orderBy('name', 'desc')
+                                ->orderBy('name', 'asc')
                                 ->paginate(15);
         return view('user.user', $data);
     }
@@ -22,7 +22,7 @@ class UserController extends Controller
         $data['users_data'] = DB::table('users')
                                 ->select('id', 'name', 'email', 'created_at', 'updated_at', 'role', 'level')
                                 ->where(DB::raw('lower(name)'), 'like',  '%'.strtolower($name).'%')
-                                ->orderBy('name', 'desc')
+                                ->orderBy('name', 'asc')
                                 ->get();    
         
         return response()->json($data);
