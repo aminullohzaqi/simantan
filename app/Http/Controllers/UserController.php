@@ -30,7 +30,10 @@ class UserController extends Controller
 
     public function editUserPage(Request $request) {
         $data['users'] = auth()->user();
-        $data['id'] = $request->id_user;
+        $data['user_data'] = DB::table('users')
+                                ->select('id', 'name', 'email', 'role', 'level')
+                                ->where('id', $request->id_user)
+                                ->get(); 
 
         return view('user.edit-user', $data);
     }
