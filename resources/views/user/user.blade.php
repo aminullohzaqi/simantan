@@ -66,8 +66,8 @@
                                 <td>{{$data->created_at}}</td>
                                 <td>{{$data->updated_at}}</td>
                                 <td>
-                                    <span><button class="btn btn-warning" onclick="toDetailPage({{$data->id}})">Edit</button></span>
-                                    <span><button class="btn btn-primary" onclick="toChangePassword({{$data->id}})">Change Password</button></span>
+                                    <span><button class="btn btn-warning btn-sm" onclick="toDetailPage({{$data->id}})">Edit</button></span>
+                                    <span><button class="btn btn-primary btn-sm" onclick="toChangePassword({{$data->id}})">Change Password</button></span>
                                 </td>
                             </tr>
                         @endforeach
@@ -115,8 +115,8 @@
                                         <td>${user.created_at}</td>
                                         <td>${user.updated_at}</td>
                                         <td>
-                                            <span><button class="btn btn-warning" onclick="toDetailPage(${user.id})">Edit</button></span>
-                                            <span><button class="btn btn-primary" onclick="toChangePassword(${user.id})">Change Password</button></span>
+                                            <span><button class="btn btn-warning btn-sm" onclick="toDetailPage(${user.id})">Edit</button></span>
+                                            <span><button class="btn btn-primary btn-sm" onclick="toChangePassword(${user.id})">Change Password</button></span>
                                         </td>
                                     </tr>`
                         })
